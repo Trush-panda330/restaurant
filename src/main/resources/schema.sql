@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS customer (
     membership_level ENUM('Non-member', 'Member', 'Premium') DEFAULT 'Non-member',  -- 顧客の会員ランク
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 顧客データ作成日
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- 顧客データ更新日
-);
+) ENGINE=InnoDB;
 
 -- 住所テーブル（顧客が複数の住所を持つ場合）
 CREATE TABLE IF NOT EXISTS customer_address (
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS customer_address (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 住所データ作成日
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 住所データ更新日
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)  -- 顧客テーブルへの外部キー
-);
+) ENGINE=InnoDB;
 
 -- 予約テーブル
 CREATE TABLE IF NOT EXISTS reservation (
@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS reservation (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 予約データ作成日
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 予約データ更新日
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)  -- 顧客IDの外部キー
-);
+) ENGINE=InnoDB;
 
--- オーダーテーブル
-CREATE TABLE IF NOT EXISTS `order` (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,   -- Order ID
+-- 注文テーブル
+CREATE TABLE IF NOT EXISTS orders (  -- 'order'を'orders'に変更
+    order_id INT AUTO_INCREMENT PRIMARY KEY,   -- 注文ID
     customer_id INT NOT NULL,                   -- 顧客ID（外部キー）
     order_date DATETIME NOT NULL,               -- 注文日時
     total_amount DECIMAL(10, 2) NOT NULL,       -- 注文総額
@@ -44,18 +44,18 @@ CREATE TABLE IF NOT EXISTS `order` (
     payment_status ENUM('UNPAID', 'WAITING', 'PAID', 'REFUND_PENDING', 'REFUNDED') NOT NULL,  -- 支払いステータス
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 注文作成日時
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- 更新日時
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)  --顧客テーブルへの外部キー
-);
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)  -- 顧客テーブルへの外部キー
+) ENGINE=InnoDB;
 
 -- メニューテーブル
 CREATE TABLE IF NOT EXISTS menu (
-    menu_id VARCHAR(100) NOT NULL PRIMARY KEY,  -- メニューID (主キー)
+    menu_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  -- メニューID (主キー)
     price DECIMAL(10,2) NOT NULL,  -- 価格 (NULL不可)
     category ENUM('Appetizer', 'Main Course', 'Dessert', 'Beverage') NOT NULL,  -- カテゴリ (ENUM化)
     description TEXT,  -- 料理の説明
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- 更新日時
-);
+) ENGINE=InnoDB;
 
 -- 注文詳細テーブル
 CREATE TABLE IF NOT EXISTS order_item (
@@ -63,9 +63,11 @@ CREATE TABLE IF NOT EXISTS order_item (
     order_id INT,  -- 注文ID（外部キー）
     menu_id INT,  -- メニューID（外部キー）
     unit_price DECIMAL(10,2),  -- 単価
-    FOREIGN KEY (order_id) REFERENCES `order`(order_id),  -- 外部キー: 注文テーブル
-    FOREIGN KEY (menu_id) REFERENCES menu(menu_id)  -- 外部キー: メニューテーブル
-);
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,  -- 外部キー: 注文テーブル
+    FOREIGN KEY (menu_id) REFERENCES menu(menu_id) ON DELETE CASCADE,  -- 外部キー: メニューテーブル
+    INDEX (order_id),  -- 注文IDにインデックスを追加
+    INDEX (menu_id)  -- メニューIDにインデックスを追加
+) ENGINE=InnoDB;
 
 -- 社員テーブル
 CREATE TABLE IF NOT EXISTS employee (
@@ -77,7 +79,7 @@ CREATE TABLE IF NOT EXISTS employee (
     salary DECIMAL(10, 2),                      -- 給与
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 作成日時
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 更新日時
-);
+) ENGINE=InnoDB;
 
 -- 支払いテーブル
 CREATE TABLE IF NOT EXISTS payment (
@@ -87,8 +89,8 @@ CREATE TABLE IF NOT EXISTS payment (
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 支払い日時
     payment_method VARCHAR(50),                -- 支払い方法（例: クレジットカード、現金）
     status ENUM('PENDING', 'COMPLETED', 'FAILED', 'REFUNDED') NOT NULL,  -- 支払い状態
-    FOREIGN KEY (order_id) REFERENCES `order`(order_id) -- 注文テーブルへの外部キー
-);
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) -- 注文テーブルへの外部キー
+) ENGINE=InnoDB;
 
 -- フィードバックテーブル
 CREATE TABLE IF NOT EXISTS feedback (
@@ -98,4 +100,4 @@ CREATE TABLE IF NOT EXISTS feedback (
     comment TEXT,                               -- コメント
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 作成日時
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id) -- 顧客テーブルへの外部キー
-);
+) ENGINE=InnoDB;
