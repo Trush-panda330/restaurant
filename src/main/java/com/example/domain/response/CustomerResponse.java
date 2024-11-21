@@ -9,7 +9,7 @@ public class CustomerResponse {
 	private int customerId;
 	private String lastName;
 	private String firstName;
-	private String phonNumber;
+	private String phoneNumber;
 	private String email;
 	private String address;
 	private String membershipLevel;
