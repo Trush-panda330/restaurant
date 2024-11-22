@@ -27,13 +27,24 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+	//Lombok事態がプロダクションコードの成果物に含まれないようにする。
+	compileOnly 'org.projectlombok:lombok'
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	//spring-boot-starter-testがJUnitのランチャーを含んでいるためこの記述は不要らしい
+	//testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	//テスト関連
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+	//implementation 'org.apache.groovy:groovy-test-junit5:4.0.23'
+	testImplementation 'org.mockito:mockito-core'
+	
+	
 }
 
 tasks.named('test') {
