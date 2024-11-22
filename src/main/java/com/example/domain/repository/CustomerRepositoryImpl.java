@@ -20,7 +20,13 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public List<Customer> findAll() {
         return mapper.findAll();
     }
-
+    
+    /**
+     * 指定されたIDの顧客情報を取得する
+     * 
+     * @param id 顧客ID
+     * @return 顧客情報、存在しない場合はOptional.empty()を返す。
+     */
     @Override
     public Optional<Customer> findById(int id) {
         return Optional.ofNullable(mapper.findById(id));
