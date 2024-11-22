@@ -1,4 +1,4 @@
-package com.example.domain.model;
+package com.example.domain.customer.model;
 
 public enum MembershipLevel {
 	NON_MEMBER("Non-member"),

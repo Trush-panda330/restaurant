@@ -1,12 +1,12 @@
-package com.example.domain.repository;
+package com.example.domain.customer.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.domain.mapper.CustomerMapper;
-import com.example.domain.model.Customer;
+import com.example.domain.customer.mapper.CustomerMapper;
+import com.example.domain.customer.model.Customer;
 
 import lombok.RequiredArgsConstructor;
 

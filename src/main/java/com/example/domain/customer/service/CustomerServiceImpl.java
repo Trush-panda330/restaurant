@@ -1,4 +1,4 @@
-package com.example.domain.service;
+package com.example.domain.customer.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.domain.exception.customer.CustomerDeleteException;
-import com.example.domain.exception.customer.CustomerInsertException;
-import com.example.domain.exception.customer.CustomerNotFoundException;
-import com.example.domain.exception.customer.CustomerUpdateException;
-import com.example.domain.model.Customer;
-import com.example.domain.repository.CustomerRepository;
-import com.example.domain.response.CustomerResponse;
+import com.example.domain.customer.exception.CustomerDeleteException;
+import com.example.domain.customer.exception.CustomerInsertException;
+import com.example.domain.customer.exception.CustomerNotFoundException;
+import com.example.domain.customer.exception.CustomerUpdateException;
+import com.example.domain.customer.model.Customer;
+import com.example.domain.customer.repository.CustomerRepository;
+import com.example.domain.customer.response.CustomerResponse;
 
 import lombok.RequiredArgsConstructor;
 

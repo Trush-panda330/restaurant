@@ -1,9 +1,9 @@
-package com.example.domain.service;
+package com.example.domain.customer.service;
 
 import java.util.List;
 
-import com.example.domain.model.Customer;
-import com.example.domain.response.CustomerResponse;
+import com.example.domain.customer.model.Customer;
+import com.example.domain.customer.response.CustomerResponse;
 
 public interface CustomerService {
     List<CustomerResponse> findAll();

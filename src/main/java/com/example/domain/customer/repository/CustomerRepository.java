@@ -1,9 +1,9 @@
-package com.example.domain.repository;
+package com.example.domain.customer.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.domain.model.Customer;
+import com.example.domain.customer.model.Customer;
 
 public interface CustomerRepository {
     List<Customer> findAll();

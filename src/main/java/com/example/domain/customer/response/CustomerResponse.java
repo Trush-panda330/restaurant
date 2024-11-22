@@ -1,4 +1,4 @@
-package com.example.domain.response;
+package com.example.domain.customer.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

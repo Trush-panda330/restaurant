@@ -1,10 +1,10 @@
-package com.example.domain.mapper;
+package com.example.domain.customer.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.domain.model.Customer;
+import com.example.domain.customer.model.Customer;
 
 @Mapper
 public interface CustomerMapper {
