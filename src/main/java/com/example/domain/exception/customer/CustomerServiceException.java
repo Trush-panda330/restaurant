@@ -1,4 +1,4 @@
-package com.example.domain.exception;
+package com.example.domain.exception.customer;
 
 public class CustomerServiceException extends RuntimeException {
     public CustomerServiceException(String message) {
