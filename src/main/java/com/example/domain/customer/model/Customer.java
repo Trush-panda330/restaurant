@@ -15,5 +15,9 @@ public class Customer {
 	private String address;
 	private MembershipLevel membershipLevel;
 	private LocalDateTime createdAt;
-	private LocalDateTime updateAt;
+	private LocalDateTime updatedAt;
+	
+	public  void setMembershipLevel(String level) {
+		this.membershipLevel = MembershipLevel.fromString(level);
+	}
 }
