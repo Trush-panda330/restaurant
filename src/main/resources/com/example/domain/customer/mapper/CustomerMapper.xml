@@ -54,7 +54,8 @@
 
 	<!-- 新しい顧客をデータベースに追加するための INSERT クエリ -->
 	<insert id="insert"
-		parameterType="com.example.domain.customer.model.Customer">
+		parameterType="com.example.domain.customer.model.Customer"
+		useGeneratedKeys="true" keyProperty="customerId">
 		INSERT INTO customer
 		(last_name, first_name,
 		phone_number, email, address, membership_level)
