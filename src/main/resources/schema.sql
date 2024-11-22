@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS orders (  -- 'order'を'orders'に変更
 CREATE TABLE IF NOT EXISTS menu (
     menu_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  -- メニューID (主キー)
     price DECIMAL(10,2) NOT NULL,  -- 価格 (NULL不可)
-    category ENUM('Appetizer', 'Main Course', 'Dessert', 'Beverage') NOT NULL,  -- カテゴリ (ENUM化)
+    menu ENUM('Special', 'Season', 'Prefix') NOT NULL,  
     description TEXT,  -- 料理の説明
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 作成日時
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- 更新日時
