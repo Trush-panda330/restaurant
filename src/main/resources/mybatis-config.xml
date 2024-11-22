@@ -3,7 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!-- MyBatis 設定 -->
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+
+    <!-- Mapper ファイルの位置を指定 -->
+    <mappers>
+        <mapper resource="com/example/domain/customer/mapper/CustomerMapper.xml"/>
+    </mappers>
 </configuration>
