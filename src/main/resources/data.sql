@@ -1,16 +1,22 @@
 -- 外部キー制約を無効にする (必要に応じて有効化)
 -- SET foreign_key_checks = 0;
 
--- テーブルのデータ削除
+
+-- トランザクションの開始
+START TRANSACTION;
+
+-- SET FOREIGN_KEY_CHECKS = 0; -- 外部キー制約を一時的に無効化
+
 DELETE FROM order_item;
-DELETE FROM orders;
 DELETE FROM payment;
-DELETE FROM feedback;
+DELETE FROM orders;
 DELETE FROM reservation;
+DELETE FROM feedback;
 DELETE FROM customer_address;
 DELETE FROM customer;
 DELETE FROM menu;
-DELETE FROM employee;
+
+-- SET FOREIGN_KEY_CHECKS = 1; -- 外部キー制約を再び有効化
 
 -- 顧客1のデータを挿入
 INSERT INTO customer (last_name, first_name, phone_number, email, address, membership_level, created_at, updated_at) 
@@ -95,6 +101,10 @@ INSERT INTO employee (name, role, phone_number, hire_date, salary, created_at, u
 ('佐藤健一', 'シェフ', '03-1234-5678', '2020-01-15', 400000, NOW(), NOW()),
 ('鈴木真美', 'ホールスタッフ', '03-2345-6789', '2021-06-10', 200000, NOW(), NOW()),
 ('田中一郎', 'マネージャー', '03-3456-7890', '2019-11-22', 400000, NOW(), NOW());
+
+
+-- トランザクションのコミット
+COMMIT;
 
 -- 外部キー制約を有効にする (必要に応じて有効化)
 -- SET foreign_key_checks = 1;
