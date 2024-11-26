@@ -19,5 +19,7 @@ public interface CustomerMapper {
     
     int update(Customer customer);
     
+    int deleteCustomerAddressByCustomerId(int customerId);
+    
     int deleteById(int id);
 }

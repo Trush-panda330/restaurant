@@ -57,7 +57,8 @@
 		parameterType="com.example.domain.customer.model.Customer"
 		useGeneratedKeys="true" keyProperty="customerId">
 		INSERT INTO customer
-		(last_name, first_name,
+		(last_name,
+		first_name,
 		phone_number, email, address, membership_level)
 		VALUES
 		(#{lastName},
@@ -83,9 +84,12 @@
 	</update>
 
 	<!-- 特定の顧客情報を削除するための DELETE クエリ -->
+	<delete id="deleteCustomerAddressByCustomerId" parameterType="int">
+	  DELETE FROM customer_address WHERE customer_id = #{customerId}
+	</delete>
+	
 	<delete id="deleteById" parameterType="int">
-		DELETE FROM customer WHERE
-		customer_id = #{id}
+		DELETE FROM customer WHERE customer_id = #{customerId};
 	</delete>
 
 </mapper>
