@@ -10,5 +10,6 @@ public interface CustomerRepository {
     Optional<Customer> findById(int id);
     boolean insert(Customer customer);
     boolean update(Customer customer);
-    boolean deleteById(int id);
+    void deleteCustomerAddressById(int customerId);
+    void deleteById(int customerId);
 }

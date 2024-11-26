@@ -41,9 +41,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public boolean update(Customer customer) {
         return mapper.update(customer) > 0;
     }
+    
+    @Override
+    public void deleteCustomerAddressById(int id) {
+    	mapper.deleteCustomerAddressByCustomerId(id);
+    }
 
     @Override
-    public boolean deleteById(int id) {
-        return mapper.deleteById(id) > 0;
+    public void deleteById(int id) {
+    	mapper.deleteById(id);
     }
 }
