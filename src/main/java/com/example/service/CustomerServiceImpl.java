@@ -94,20 +94,38 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	/**
+	* 顧客の住所情報を削除します。<p>
+	* 顧客IDに対応する住所情報を削除します。
+	* 
+	* @param customerId 削除する顧客のID
+	* @throws CustomerDeleteException 住所情報の削除に失敗した場合
+	*/
+	@Override
+	public void deleteCustomerAddressById(int customerId) {
+		try {
+			customerRepository.deleteCustomerAddressById(customerId);
+		} catch (Exception e) {
+			throw new CustomerDeleteException("顧客の住所情報削除に失敗しました。顧客ID: " + customerId, e);
+		}
+	}
+
+	/**
 	 * 顧客情報を削除します。<p>
-	 * 削除に失敗した場合、{@link CustomerDeleteException} がスローされます。
+	 * 顧客IDに対応する顧客情報を削除します。
 	 * 
-	 * @param id 削除する顧客のID
-	 * @return 削除が成功した場合はtrue、失敗した場合はfalse
-	 * @throws CustomerDeleteException 削除に失敗した場合
+	 * @param customerId 削除する顧客のID
+	 * @throws CustomerDeleteException 顧客情報の削除に失敗した場合
 	 */
 	@Override
-	public boolean deleteById(int id) {
-		boolean isDeleted = customerRepository.deleteById(id);
-		if (!isDeleted) {
-			throw new CustomerDeleteException("顧客ID: " + id + " の削除に失敗しました。");
+	public void deleteById(int customerId) {
+		try {
+			// 住所テーブルを先に削除
+			deleteCustomerAddressById(customerId);
+			// 顧客テーブルを削除
+			customerRepository.deleteById(customerId);
+		} catch (Exception e) {
+			throw new CustomerDeleteException("顧客の削除に失敗しました。顧客ID: " + customerId, e);
 		}
-		return isDeleted;
 	}
 
 	/**
